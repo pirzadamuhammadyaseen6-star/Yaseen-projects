@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXORA | Premium E-Commerce</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #c7a17a;
+      --primary-dark: #a07d56;
+      --dark: #1a1a1a;
+      --light: #faf7f2;
+      --gray: #7a7a7a;
+      --border: #e8e0d5;
+      --success: #2e7d32;
+      --danger: #c62828;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    body.dark {
+      --light: #121212;
+      --dark: #f5f5f5;
+      --border: #2a2a2a;
+      background: #121212;
+    }
+
+    h1,
+    h2,
+    h3,
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--border);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(80px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideFromLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideFromRight {
+      0% {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Applying Animations */
+    .top-header {
+      animation: slideDown 0.6s ease-out forwards;
+    }
+
+    .navbar {
+      animation: slideDown 0.5s ease-out forwards;
+    }
+
+    .hero {
+      animation: fadeInScale 0.7s ease-out forwards;
+    }
+
+    .hero-content {
+      animation: slideFromLeft 0.6s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-img {
+      animation: slideFromRight 0.6s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .filters-row {
+      animation: slideUp 0.6s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
+    .products-section .section-header {
+      animation: slideUp 0.5s ease-out 0.4s forwards;
+      opacity: 0;
+    }
+
+    .product-card {
+      opacity: 0;
+      animation: fadeInScale 0.5s ease-out forwards;
+    }
+
+    /* Stagger delay for product cards */
+    .product-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .product-card:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .product-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .product-card:nth-child(4) {
+      animation-delay: 0.25s;
+    }
+
+    .product-card:nth-child(5) {
+      animation-delay: 0.3s;
+    }
+
+    .product-card:nth-child(6) {
+      animation-delay: 0.35s;
+    }
+
+    .product-card:nth-child(7) {
+      animation-delay: 0.4s;
+    }
+
+    .product-card:nth-child(8) {
+      animation-delay: 0.45s;
+    }
+
+    .product-card:nth-child(9) {
+      animation-delay: 0.5s;
+    }
+
+    .product-card:nth-child(10) {
+      animation-delay: 0.55s;
+    }
+
+    .product-card:nth-child(11) {
+      animation-delay: 0.6s;
+    }
+
+    .product-card:nth-child(12) {
+      animation-delay: 0.65s;
+    }
+
+    footer {
+      animation: slideUp 0.6s ease-out 0.5s forwards;
+      opacity: 0;
+    }
+
+    .top-header {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 50px;
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-text {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 22px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .nav-icons i {
+      transition: 0.3s;
+    }
+
+    .nav-icons i:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .cart-count,
+    .wishlist-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-icon,
+    .wishlist-icon {
+      position: relative;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+      padding: 60px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero-img img {
+      max-width: 100%;
+      border-radius: 30px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 50px;
+      gap: 20px;
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-filter input,
+    .category-filter select,
+    .sort-filter select {
+      padding: 12px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      background: var(--light);
+    }
+
+    .products-section {
+      padding: 40px 50px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 35px;
+    }
+
+    .product-card {
+      background: var(--light);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .product-badge.sale {
+      background: var(--danger);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.03);
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .product-category {
+      font-size: 12px;
+      color: var(--gray);
+      margin: 5px 0;
+    }
+
+    .price-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      margin: 10px 0;
+    }
+
+    .current-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn-cart,
+    .btn-wishlist {
+      flex: 1;
+      padding: 10px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .btn-cart:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-wishlist:hover {
+      background: var(--danger);
+      color: white;
+    }
+
+    .cart-sidebar {
+      position: fixed;
+      right: -500px;
+      top: 0;
+      width: 460px;
+      max-width: 90vw;
+      height: 100%;
+      background: var(--light);
+      z-index: 2000;
+      transition: 0.4s;
+      padding: 25px;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .qty-control {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      align-items: center;
+    }
+
+    .qty-control button {
+      width: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .auth-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--light);
+      padding: 35px;
+      border-radius: 28px;
+      z-index: 2100;
+      width: 400px;
+      display: none;
+    }
+
+    .auth-modal.show {
+      display: block;
+    }
+
+    .auth-modal input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+    }
+
+    /* ========== PROFESSIONAL FOOTER WITH YOUR PERSONAL INFO ========== */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 50px 50px 30px;
+      margin-top: 40px;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .footer-section p {
+      color: #aaa;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #ccc;
+      text-decoration: none;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50px;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    .social-link i {
+      font-size: 20px;
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .contact-info {
+      list-style: none;
+    }
+
+    .contact-info li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #aaa;
+    }
+
+    .contact-info li i {
+      width: 25px;
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #888;
+      font-size: 14px;
+    }
+
+    .footer-bottom a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+
+      .navbar,
+      .filters-row,
+      .products-section {
+        padding: 15px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      footer {
+        padding: 30px 20px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-header">✨ FREE SHIPPING ON ORDERS $150+ | LUXURY RETURNS ✨</div>
+
+  <div class="navbar">
+    <div class="logo-text">LUXORA</div>
+    <div class="nav-links">
+      <a href="#">Home</a><a href="#">Shop</a><a href="#">New</a><a href="#">Collections</a>
+    </div>
+    <div class="nav-icons">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-user" id="userIcon"></i>
+      <i class="fas fa-moon" id="themeToggle"></i>
+      <div class="wishlist-icon"><i class="far fa-heart" id="wishlistIcon"></i><span class="wishlist-count"
+          id="wishlistCount">0</span></div>
+      <div class="cart-icon"><i class="fas fa-shopping-bag" id="cartIcon"></i><span class="cart-count"
+          id="cartCount">0</span></div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Timeless Elegance<br>Modern Luxury</h1>
+      <p>Discover handcrafted masterpieces that redefine sophistication.</p>
+      <button class="btn-primary" id="shopNowBtn">Shop Collection →</button>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" alt="luxury store">
+    </div>
+  </div>
+
+  <div class="filters-row">
+    <div class="search-filter"><input type="text" id="searchInput" placeholder="Search products..."></div>
+    <div class="category-filter"><select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Bags">Bags</option>
+        <option value="Watches">Watches</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Accessories">Accessories</option>
+      </select></div>
+    <div class="sort-filter"><select id="sortFilter">
+        <option value="default">Sort by</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+      </select></div>
+  </div>
+
+  <div class="products-section">
+    <div class="section-header">
+      <h2>Premium Collection</h2><span id="resultCount">12 products</span>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+
+  <!-- FOOTER WITH YOUR PERSONAL WHATSAPP, LINKEDIN, GITHUB -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>LUXORA</h3>
+        <p>Timeless elegance meets modern luxury. Discover handcrafted masterpieces that redefine sophistication.</p>
+        <div class="social-links">
+          <a href="https://wa.me/923113404105" target="_blank" class="social-link">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="https://www.linkedin.com/in/yaseen-pirzada-aa6941385/" target="_blank" class="social-link">
+            <i class="fab fa-linkedin-in"></i> LinkedIn
+          </a>
+          <a href="https://github.com/pirzadamuhammadyaseen6-star" target="_blank" class="social-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="contact-info" style="list-style: none;">
+          <li><i class="fas fa-chevron-right"></i> About Us</li>
+          <li><i class="fas fa-chevron-right"></i> Contact</li>
+          <li><i class="fas fa-chevron-right"></i> Shipping Info</li>
+          <li><i class="fas fa-chevron-right"></i> Returns & Exchanges</li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <ul class="contact-info">
+          <li><i class="fab fa-whatsapp"></i> +92 311 3404105</li>
+          <li><i class="fas fa-envelope"></i> yaseenpirzada3@gmail.com</li>
+          <li><i class="fas fa-map-marker-alt"></i>Sukkur, Pakistan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 LUXORA — The pinnacle of high-class e‑commerce | All Rights Reserved</p>
+      <p style="margin-top: 10px;">Made with <i class="fas fa-heart" style="color: var(--primary);"></i> by Yaseen
+        Pirzada</p>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Shopping Bag</h3><i class="fas fa-times" id="closeCart" style="cursor:pointer;"></i>
+    </div>
+    <div id="cartItemsList"></div>
+    <div class="cart-total" style="margin:15px 0"><span>Total:</span><span id="cartTotal">$0</span></div>
+    <button id="checkoutBtn"
+      style="width:100%; padding:15px; background:var(--primary); border:none; border-radius:40px;">Checkout →</button>
+  </div>
+
+  <div class="auth-modal" id="authModal">
+    <h3>Sign Up / Login</h3>
+    <input type="email" id="authEmail" placeholder="Email (anything)">
+    <input type="password" id="authPassword" placeholder="Password (anything)">
+    <button id="authSubmitBtn"
+      style="padding:12px; background:var(--primary); width:100%; border-radius:40px; border:none; cursor:pointer;">Continue</button>
+    <p style="margin-top:10px; text-align:center; font-size:12px;">✨ Any email/password works — just for demo ✨</p>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Heritage Leather Tote", category: "Bags", price: 489, oldPrice: 650, image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&h=600&fit=crop", rating: 4.8, sale: true },
+      { id: 2, name: "Aurora Chronograph Watch", category: "Watches", price: 750, oldPrice: 950, image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&h=600&fit=crop", rating: 4.9, sale: true },
+      { id: 3, name: "Golden Serpent Necklace", category: "Jewelry", price: 1290, oldPrice: 1800, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=600&fit=crop", rating: 5.0, sale: true },
+      { id: 4, name: "Suede Monk Strap Shoes", category: "Shoes", price: 375, image: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&h=600&fit=crop", rating: 4.6, sale: false },
+      { id: 5, name: "Silk Blend Scarf", category: "Accessories", price: 129, image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&h=600&fit=crop", rating: 4.5, sale: false },
+      { id: 6, name: "Celestial Moon Watch", category: "Watches", price: 890, image: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=500&h=600&fit=crop", rating: 4.7, sale: false },
+      { id: 7, name: "Minimalist Backpack", category: "Bags", price: 420, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?w=500&h=600&fit=crop", rating: 4.6, sale: false },
+      { id: 8, name: "Diamond Halo Earrings", category: "Jewelry", price: 599, oldPrice: 799, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=600&fit=crop", rating: 4.9, sale: true },
+      { id: 9, name: "Leather Chelsea Boots", category: "Shoes", price: 495, image: "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=500&h=600&fit=crop", rating: 4.8, sale: false },
+      { id: 10, name: "Cashmere Wrap", category: "Accessories", price: 249, image: "https://images.unsplash.com/photo-1584271854089-9bb3e5168e32?w=500&h=600&fit=crop", rating: 4.7, sale: false },
+      { id: 11, name: "Royal Velvet Clutch", category: "Bags", price: 329, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", rating: 4.8, sale: false },
+      { id: 12, name: "Diamond Tennis Bracelet", category: "Jewelry", price: 2490, oldPrice: 3500, image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=600&fit=crop", rating: 5.0, sale: true }
+    ];
+
+    let cart = [], wishlist = [];
+
+    function saveData() { localStorage.setItem("lux_cart", JSON.stringify(cart)); localStorage.setItem("lux_wish", JSON.stringify(wishlist)); updateBadges(); renderCart(); }
+    function loadData() { let c = localStorage.getItem("lux_cart"); if (c) cart = JSON.parse(c); let w = localStorage.getItem("lux_wish"); if (w) wishlist = JSON.parse(w); updateBadges(); renderCart(); renderProducts(); }
+
+    function updateBadges() { document.getElementById("cartCount").innerText = cart.reduce((a, b) => a + b.qty, 0); document.getElementById("wishlistCount").innerText = wishlist.length; }
+
+    function showToast(msg) { let t = document.createElement("div"); t.innerText = msg; t.style.position = "fixed"; t.style.bottom = "20px"; t.style.left = "20px"; t.style.background = "var(--primary)"; t.style.color = "white"; t.style.padding = "12px 24px"; t.style.borderRadius = "40px"; t.style.zIndex = "9999"; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
+
+    function addToCart(p) { let existing = cart.find(i => i.id === p.id); if (existing) existing.qty++; else cart.push({ ...p, qty: 1 }); saveData(); showToast(p.name + " added to cart!"); }
+
+    function renderProducts() {
+      let search = document.getElementById("searchInput").value.toLowerCase();
+      let category = document.getElementById("categoryFilter").value;
+      let sort = document.getElementById("sortFilter").value;
+      let filtered = products.filter(p => p.name.toLowerCase().includes(search) && (category === "all" || p.category === category));
+      if (sort === "price_asc") filtered.sort((a, b) => a.price - b.price);
+      if (sort === "price_desc") filtered.sort((a, b) => b.price - a.price);
+
+      document.getElementById("resultCount").innerText = filtered.length + " products";
+      let grid = document.getElementById("productsGrid");
+      grid.innerHTML = filtered.map(p => `<div class="product-card"><div class="product-badge ${p.sale ? 'sale' : ''}">${p.sale ? 'SALE' : ''}</div><img src="${p.image}" class="product-img" loading="lazy"><div class="product-info"><div class="product-title">${p.name}</div><div class="product-category">${p.category}</div><div class="price-row"><span class="current-price">$${p.price}</span>${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}</div><div class="btn-group"><button class="btn-cart" data-id="${p.id}">Add to Cart</button><button class="btn-wishlist" data-id="${p.id}"><i class="far fa-heart"></i></button></div></div></div>`).join("");
+
+      document.querySelectorAll(".btn-cart").forEach(btn => btn.addEventListener("click", (e) => { let pid = parseInt(btn.dataset.id); let prod = products.find(p => p.id === pid); if (prod) addToCart(prod); }));
+      document.querySelectorAll(".btn-wishlist").forEach(btn => btn.addEventListener("click", (e) => { let pid = parseInt(btn.dataset.id); let prod = products.find(p => p.id === pid); if (!wishlist.find(w => w.id === pid)) { wishlist.push(prod); saveData(); showToast("Added to wishlist ❤️"); renderProducts(); } else showToast("Already in wishlist"); }));
+    }
+
+    function renderCart() {
+      let container = document.getElementById("cartItemsList");
+      if (cart.length === 0) { container.innerHTML = "<p>Your cart is empty.</p>"; document.getElementById("cartTotal").innerText = "$0"; return; }
+      let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+      container.innerHTML = cart.map(i => `<div class="cart-item"><img src="${i.image}"><div><b>${i.name}</b><br>$${i.price}<div class="qty-control"><button class="dec" data-id="${i.id}">-</button><span>${i.qty}</span><button class="inc" data-id="${i.id}">+</button><button class="remove" data-id="${i.id}" style="color:red;">🗑️</button></div></div></div>`).join("");
+      document.getElementById("cartTotal").innerText = `$${total.toFixed(2)}`;
+
+      document.querySelectorAll(".inc").forEach(b => b.addEventListener("click", () => { let id = parseInt(b.dataset.id); let item = cart.find(i => i.id === id); if (item) { item.qty++; saveData(); renderCart(); } }));
+      document.querySelectorAll(".dec").forEach(b => b.addEventListener("click", () => { let id = parseInt(b.dataset.id); let item = cart.find(i => i.id === id); if (item) { item.qty--; if (item.qty <= 0) cart = cart.filter(i => i.id !== id); saveData(); renderCart(); } }));
+      document.querySelectorAll(".remove").forEach(b => b.addEventListener("click", () => { let id = parseInt(b.dataset.id); cart = cart.filter(i => i.id !== id); saveData(); renderCart(); }));
+    }
+
+    document.getElementById("cartIcon").addEventListener("click", () => { document.getElementById("cartSidebar").classList.add("open"); document.getElementById("overlay").classList.add("show"); });
+    document.getElementById("closeCart").addEventListener("click", () => { document.getElementById("cartSidebar").classList.remove("open"); document.getElementById("overlay").classList.remove("show"); });
+    document.getElementById("overlay").addEventListener("click", () => { document.getElementById("cartSidebar").classList.remove("open"); document.getElementById("overlay").classList.remove("show"); });
+    document.getElementById("checkoutBtn").addEventListener("click", () => { if (cart.length === 0) alert("Cart empty"); else { alert("✨ Order placed successfully! Thank you for shopping with LUXORA ✨"); cart = []; saveData(); renderCart(); document.getElementById("cartSidebar").classList.remove("open"); document.getElementById("overlay").classList.remove("show"); } });
+
+    document.getElementById("userIcon").addEventListener("click", () => document.getElementById("authModal").classList.toggle("show"));
+    document.getElementById("authSubmitBtn").addEventListener("click", () => {
+      let email = document.getElementById("authEmail").value.trim();
+      let password = document.getElementById("authPassword").value.trim();
+      if (email && password) {
+        showToast(`Welcome back, ${email.split('@')[0]}! ✨`);
+        document.getElementById("authModal").classList.remove("show");
+        document.getElementById("authEmail").value = "";
+        document.getElementById("authPassword").value = "";
+      } else { showToast("Please enter email and password"); }
+    });
+
+    document.getElementById("themeToggle").addEventListener("click", () => document.body.classList.toggle("dark"));
+    document.getElementById("shopNowBtn").addEventListener("click", () => document.querySelector(".products-section").scrollIntoView({ behavior: "smooth" }));
+    document.getElementById("searchInput").addEventListener("input", renderProducts);
+    document.getElementById("categoryFilter").addEventListener("change", renderProducts);
+    document.getElementById("sortFilter").addEventListener("change", renderProducts);
+
+    loadData();
+  </script>
+</body>
+
+</html>
