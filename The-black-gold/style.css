@@ -1,0 +1,91 @@
+:root {
+    --gold: #c5a059;
+    --dark-bg: #0a0a0a;
+    --soft-dark: #161616;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--dark-bg); color: white; }
+
+.gold-text { color: var(--gold); }
+.navbar { background: rgba(0,0,0,0.85); border-bottom: 1px solid #222; }
+
+.hero-section {
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b') center/cover;
+    display: flex; align-items: center; justify-content: center; position: relative;
+}
+.hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+.content-box { position: relative; z-index: 1; }
+
+.py-100 { padding: 100px 0; }
+
+.menu-card {
+    background: var(--soft-dark); padding: 25px; border-radius: 15px;
+    text-align: center; border: 1px solid #222; transition: all 0.4s ease;
+}
+.menu-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(197, 160, 89, 0.2); }
+
+.btn-gold { background: var(--gold); color: black; font-weight: 600; border-radius: 10px; }
+.booking-card { background: #111; max-width: 450px; }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Payment Area Animation */
+#paymentArea { animation: fadeIn 0.5s ease-in; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+
+/* --- LUXURY FOOTER STYLES --- */
+.site-footer {
+    background-color: #050505; /* Deeper Black */
+    padding: 80px 0 40px 0;
+    border-top: 1px solid rgba(197, 160, 89, 0.1); /* Very subtle gold line */
+}
+
+.footer-logo h2 {
+    letter-spacing: 8px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+.gold-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-top: 10px;
+}
+
+.footer-tagline {
+    color: #888;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.social-links a {
+    color: #555;
+    font-size: 1.2rem;
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: var(--gold);
+    transform: translateY(-5px);
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+}
+
+.footer-bottom {
+    border-top: 1px solid #111;
+    padding-top: 30px;
+}
+
+.copyright {
+    color: #444;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
